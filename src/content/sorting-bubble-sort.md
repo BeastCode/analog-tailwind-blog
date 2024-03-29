@@ -1,4 +1,5 @@
 ---
+topic: Algorithms
 title: Bubbel Sort
 chapter: Sorting
 slug: sorting-bubble-sort

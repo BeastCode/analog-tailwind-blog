@@ -1,4 +1,5 @@
 ---
+topic: Algorithms
 title: Data Structure
 chapter: Linked List
 slug: linkedlist-data-structure

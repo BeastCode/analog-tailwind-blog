@@ -1,6 +1,6 @@
 import { MarkdownComponent, injectContent } from '@analogjs/content';
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { BlogPost } from 'src/app/models/post';
 
@@ -15,6 +15,14 @@ import { BlogPost } from 'src/app/models/post';
     </div>
   `,
 })
-export default class BlogPostPage {
+export default class BlogPostPage implements OnInit, OnDestroy {
   post$ = injectContent<BlogPost>();
+
+  ngOnInit(): void {
+    console.log('ngOnInit BlogPostPage');
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy BlogPostPage');
+  }
 }

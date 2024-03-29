@@ -5,11 +5,13 @@ import {
 } from '@angular/platform-server';
 
 import { appConfig } from './app.config';
+import { AppStateService } from './services/app.store.service';
 
 const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     { provide: SERVER_CONTEXT, useValue: 'ssr-analog' },
+    AppStateService,
   ],
 };
 

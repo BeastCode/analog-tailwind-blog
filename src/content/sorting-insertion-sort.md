@@ -1,4 +1,5 @@
 ---
+topic: Algorithms
 title: Insertion Sort
 chapter: Sorting
 slug: sorting-insertion-sort

@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { injectContentFiles } from '@analogjs/content';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-
-import { BlogPost } from 'src/app/models/post';
+import { BlogPost, Topic } from '../../models/post';
+import { AppStateService } from '../../services/app.store.service';
+import { Subscription } from 'rxjs';
+type CategoriesMap = { name: string; posts: any[] }[];
 
 @Component({
   standalone: true,
   imports: [NgFor, RouterLink, AsyncPipe],
+  providers: [AppStateService],
   template: `
-    <div *ngFor="let category of categories">
+    <div *ngFor="let category of filteredCategories">
       <div class="text-xl font-bold">{{ category.name }}</div>
       <ul>
         <li *ngFor="let post of category.posts">
@@ -21,12 +24,52 @@ import { BlogPost } from 'src/app/models/post';
     </div>
   `,
 })
-export default class IndexPage {
+export default class IndexPage implements OnInit, OnDestroy {
   posts = injectContentFiles<BlogPost>();
-  categories: { name: string; posts: any[] }[] = [];
+  categories: CategoriesMap = [];
+  filteredCategories: CategoriesMap = [];
+  selectedTopic = Topic.Angular; // 'Algorithms'; // 'Angular';
+  sub: Subscription = new Subscription();
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  ngOnInit(): void {
+    console.log('ngOnInit IndexPage');
+    this.sub.add(
+      this.store.getSelectedTopic().subscribe((topic) => {
+        console.log('getSelectedTopic.subscribe', topic);
+        this.selectedTopic = topic; // as Topic;
+        this.filterCategories(topic);
+      })
+    );
+    console.log(this.sub);
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    console.log('ngOnDestroy IndexPage');
+  }
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: AppStateService
+  ) {
     this.organizePostsByCategory();
+    this.filterCategories(this.selectedTopic);
+    console.log('constructor');
+  }
+
+  filterCategories(topic: Topic): void {
+    this.filteredCategories = [];
+    this.categories.forEach((x) => {
+      if (x.posts[0].attributes.topic === topic) {
+        this.filteredCategories.push(x);
+      }
+    });
+
+    // this.filteredCategories = this.categories.filter((category) => {
+    //   // Check if any post in the category has the specified topic
+    //   return category.posts.some((post) => post.attributes.topic === topic);
+    // });
   }
 
   organizePostsByCategory() {
@@ -48,7 +91,7 @@ export default class IndexPage {
   }
 
   onBlogPostClicked(post: any) {
-    console.log(post);
+    // console.log(post);
     this.router.navigate(['/blog/' + post.attributes.slug]);
   }
 }
