@@ -20,10 +20,10 @@ type CategoriesMap = { name: string; posts: any[] }[];
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let category of filteredCategories">
-      <div class="text-xl font-bold">{{ category.name }}</div>
+      <div class="text-xl font-bold p-6">{{ category.name }}</div>
       <ul>
         <li *ngFor="let post of category.posts">
-          <div (click)="onBlogPostClicked(post)">
+          <div (click)="onBlogPostClicked(post)" class="p-2">
             {{ post.attributes.title }}
           </div>
         </li>
@@ -69,13 +69,10 @@ export default class IndexPage implements OnInit, OnDestroy {
   filterCategories(topic: Topic): void {
     this.filteredCategories = [];
     this.categories.forEach((x) => {
-      console.log("'" + x.posts[0].attributes.topic + "'" + topic + "'");
       if (x.posts[0].attributes.topic === topic) {
-        console.log('push', x);
         this.filteredCategories.push(x);
       }
     });
-    console.log('filter', this.filteredCategories);
     this.cdr.markForCheck();
     // this.filteredCategories = this.categories.filter((category) => {
     //   // Check if any post in the category has the specified topic
