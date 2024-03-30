@@ -5,7 +5,7 @@ export interface BlogPost {
 }
 
 export enum Topic {
-  AI = "AI",
-  Angular = "Angular",
-  Algorithms = " Algorithms"
+  AI = 'AI',
+  Angular = 'Angular',
+  Algorithms = 'Algorithms',
 }

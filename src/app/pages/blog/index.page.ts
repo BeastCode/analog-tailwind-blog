@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { injectContentFiles } from '@analogjs/content';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -10,7 +16,8 @@ type CategoriesMap = { name: string; posts: any[] }[];
 @Component({
   standalone: true,
   imports: [NgFor, RouterLink, AsyncPipe],
-  providers: [AppStateService],
+  // providers: [AppStateService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let category of filteredCategories">
       <div class="text-xl font-bold">{{ category.name }}</div>
@@ -51,7 +58,8 @@ export default class IndexPage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private store: AppStateService
+    private store: AppStateService,
+    private cdr: ChangeDetectorRef
   ) {
     this.organizePostsByCategory();
     this.filterCategories(this.selectedTopic);
@@ -61,11 +69,14 @@ export default class IndexPage implements OnInit, OnDestroy {
   filterCategories(topic: Topic): void {
     this.filteredCategories = [];
     this.categories.forEach((x) => {
+      console.log("'" + x.posts[0].attributes.topic + "'" + topic + "'");
       if (x.posts[0].attributes.topic === topic) {
+        console.log('push', x);
         this.filteredCategories.push(x);
       }
     });
-
+    console.log('filter', this.filteredCategories);
+    this.cdr.markForCheck();
     // this.filteredCategories = this.categories.filter((category) => {
     //   // Check if any post in the category has the specified topic
     //   return category.posts.some((post) => post.attributes.topic === topic);

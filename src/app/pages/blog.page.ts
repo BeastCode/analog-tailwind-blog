@@ -1,5 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AppStateService } from '../services/app.store.service';
 import { Topic } from '../models/post';
@@ -7,7 +12,8 @@ import { Topic } from '../models/post';
 @Component({
   standalone: true,
   imports: [RouterOutlet, NgIf],
-  providers: [AppStateService],
+  // providers: [AppStateService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="bg-blue-800">
       <div class="p-3 text-3xl font-bold">
@@ -49,6 +55,7 @@ export default class BlogPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('ngOnInit blogpage');
+
     this.router.events.subscribe((event: any) => {
       this.isBlogRoute = event.url !== '/blog';
     });

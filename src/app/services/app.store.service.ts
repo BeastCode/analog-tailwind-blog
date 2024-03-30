@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Topic } from '../models/post';
 import angular from '@analogjs/vite-plugin-angular';
@@ -6,7 +6,7 @@ import angular from '@analogjs/vite-plugin-angular';
 @Injectable({
   providedIn: 'root',
 })
-export class AppStateService {
+export class AppStateService implements OnInit, OnDestroy {
   private selectedTopicSubject: BehaviorSubject<Topic> =
     new BehaviorSubject<Topic>(Topic.Angular);
 
@@ -20,5 +20,13 @@ export class AppStateService {
 
   getSelectedTopic(): Observable<Topic> {
     return this.selectedTopicSubject.asObservable();
+  }
+
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy service');
+  }
+
+  ngOnInit(): void {
+    console.log('ngOnInit service');
   }
 }

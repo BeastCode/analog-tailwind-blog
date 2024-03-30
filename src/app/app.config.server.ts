@@ -11,7 +11,7 @@ const serverConfig: ApplicationConfig = {
   providers: [
     provideServerRendering(),
     { provide: SERVER_CONTEXT, useValue: 'ssr-analog' },
-    AppStateService,
+    { provide: AppStateService, useClass: AppStateService },
   ],
 };
 
