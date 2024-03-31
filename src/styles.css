@@ -49,6 +49,14 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  color: rgb(200, 200, 202);
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

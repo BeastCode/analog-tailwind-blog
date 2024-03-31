@@ -9,7 +9,9 @@ import { BlogPost } from 'src/app/models/post';
   imports: [MarkdownComponent, NgIf, AsyncPipe],
   template: `
     <div *ngIf="post$ | async as post">
-      <div class="text-xl font-bold">{{ post.attributes.title }}</div>
+      <div class="text-2xl font-bold pt-6 pb-2 text-blue-600">
+        {{ post.attributes.title }}
+      </div>
 
       <analog-markdown [content]="post.content" />
     </div>

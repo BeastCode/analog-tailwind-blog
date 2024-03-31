@@ -20,7 +20,9 @@ type CategoriesMap = { name: string; posts: any[] }[];
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let category of filteredCategories">
-      <div class="text-xl font-bold pl-3 pt-4">{{ category.name }}</div>
+      <div class="text-xl font-bold pl-3 pt-4" text-blue-100>
+        {{ category.name }}
+      </div>
       <ul>
         <li *ngFor="let post of category.posts">
           <div (click)="onBlogPostClicked(post)" class="pl-6">
