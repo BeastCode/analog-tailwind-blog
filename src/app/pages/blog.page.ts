@@ -9,7 +9,7 @@ import { Topic } from '../models/post';
   imports: [RouterOutlet, NgIf, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex flex-wrap justify-between items-center bg-blue-600">
+    <div class="flex flex-wrap justify-around items-center bg-blue-600">
       <div (click)="onNotesClicked()" class="p-3 text-3xl font-bold">Notes</div>
       <div *ngFor="let topic of topics" (click)="onMenuClicked(topic)">
         {{ topic }}
