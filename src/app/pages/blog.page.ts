@@ -24,7 +24,7 @@ type CategoriesMap = { name: string; posts: any[] }[];
       <div
         *ngFor="let topic of topics"
         (click)="onMenuClicked(topic)"
-        class="pl-4 pr-4 pt-1 text-xl font-bold"
+        class="pl-4 pr-4 pt-1 text-xl w-60 font-bold"
       >
         {{ topic }}
       </div>

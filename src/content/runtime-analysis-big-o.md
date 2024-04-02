@@ -1,8 +1,8 @@
 ---
 topic: Algorithms
 title: Big O
-chapter: Data Structure
-slug: datastructure-big-o
+chapter: Runtime Analysis
+slug: runtime-analysis-big-o
 ---
 
 Time Complexity
@@ -42,7 +42,7 @@ O(2) -> O(1)
 
 ## O(log n)
 
-Gussing game, half, half, divide and concure
+Guessing game, half, half, divide and concure
 2^3 = 8
 log2 8 = 3
 
@@ -55,3 +55,10 @@ Most efficiant sort algoritms, quicksort, merge sort
 # Study
 
 https://www.bigocheatsheet.com/
+
+Constant: O(1)
+Linear time: O(n)
+Logarithmic time: O(n log n)
+Quadratic time: O(n^2)
+Exponential time: O(2^n)
+Factorial time: O(n!)
